@@ -29,14 +29,14 @@ def count_unique(input_string):
 
 	"""
 
-	counting_dictionary = {}
+	counting_dictionary = {}						# initialize an empty dictionary
 
-	list_was_a_string = input_string.split(" ")
+	list_was_a_string = input_string.split(" ")		# split the input string into a list on the spaces
 	
-	for item in list_was_a_string:
-		if item in counting_dictionary.keys():
+	for item in list_was_a_string:					# now iterate through the words in the list
+		if item in counting_dictionary.keys():		# if a word is already a key in the dictionary, increment its value by one.
 			counting_dictionary[item] += 1
-		else:
+		else:										# otherwise, add the word as a key and give it the value of 1
 			counting_dictionary[item] = 1
 
 
@@ -69,11 +69,11 @@ def find_common_items(list1, list2):
 	[1, 1, 2, 2]
 
 	"""
-	common_list = []
+	common_list = []							# initialize an empty list
 	
-	for item_from_1 in list1:
-		for item_from_2 in list2:
-			if item_from_2 == item_from_1:
+	for item_from_1 in list1:					# loop through each item in the first list
+		for item_from_2 in list2:				# for each item in the first list, loop through each item in the second list
+			if item_from_2 == item_from_1:		# if the two items are the same, add them to the list of words in common
 				common_list.append(item_from_2)
 			else:
 				pass
@@ -103,10 +103,10 @@ def find_unique_common_items(list1, list2):
 
 	"""
 	
-	set1 = set(list1)
-	set2 = set(list2)
+	set1 = set(list1) # define a set of the unique items in the first list
+	set2 = set(list2) # and another set of the items in the second list
 
-	return set1 & set2
+	return set1 & set2 # return the intersection of the two sets.
 
 
 def get_sum_zero_pairs(input_list):
@@ -139,15 +139,17 @@ def get_sum_zero_pairs(input_list):
 
 	"""
 	
-	list_no_duplicates = list(set(input_list))
+	list_no_duplicates = list(set(input_list))								# turning the input list into a set eliminates duplicates.
 	zero_sum_list = []
-	test_dict = {item: list_no_duplicates for item in list_no_duplicates}
-	
-	for key, value in test_dict.iteritems():
-		for i in range(len(value)):
-			if key + value[i] == 0 and [key, value[i]] not in zero_sum_list:
+	test_dict = {item: list_no_duplicates for item in list_no_duplicates}	# a dictionary in which each item on the list is a key,
+																			# and each key has a value of the entire no-duplicates list.
+	for key, value in test_dict.iteritems():								# loop through the key-value pairs in the dictionary
+		for i in range(len(value)):											# the values are lists, so loop through those too.
+			if key + value[i] == 0 and [key, value[i]] not in zero_sum_list:# add the key to the current item in the value list.
+																			# if the sum is zero, check whether the key-value pair
+																			# is already in the list. If it isn't, add it and sort the list.
 				key_value_pair = [key, value[i]]
-				key_value_pair.sort()
+				key_value_pair.sort()										# sorting the list keeps (-2, 2) and (2, -2) from appearing together.
 				zero_sum_list.append(key_value_pair)
 	
 	return zero_sum_list
@@ -170,6 +172,9 @@ def remove_duplicates(words):
 	['Rose', 'a', 'is', 'rose']
 
 	"""
+	
+	# list.index(item) will return the index of the first instance only. e.g. words.index("rose") is always 0.
+	# entries in a dictionary are unique, so duplicate words are discarded.
 	rose_dict = {words.index(word_to_test): word_to_test for word_to_test in words}
 	word_list = rose_dict.values()
 
@@ -186,12 +191,12 @@ def encode(phrase):
 	>>> encode("You are a beautiful, talented, brilliant, powerful musk ox.")
 	'You drp d bpduouful, odlpnopd, brulludno, powprful musk ox.'
 	"""
-	
+	# create a dictionary of letter equivalents
 	codebook = {'e': 'p',
 				'a': 'd',
 				't': 'o',
 				'i': 'u'}
-	cipher = ""
+	cipher = "" # create an empty string
 				
 	for letter in phrase:
 		if letter in codebook.keys():
